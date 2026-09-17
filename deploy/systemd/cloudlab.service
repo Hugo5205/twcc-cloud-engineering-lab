@@ -1,0 +1,21 @@
+[Unit]
+Description=TWCC Cloud Engineering Lab FastAPI
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=cloudapp
+Group=cloudapp
+
+WorkingDirectory=/opt/cloudlab/repo
+
+Environment="PYTHONUNBUFFERED=1"
+
+ExecStart=/opt/cloudlab/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
